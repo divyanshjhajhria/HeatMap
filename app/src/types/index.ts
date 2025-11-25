@@ -3,9 +3,17 @@
  */
 
 export type RootStackParamList = {
+  Login: undefined;
+  Signup: undefined;
   Home: undefined;
   PlaceDetails: { placeId: number };
   Achievements: { userId: number };
+  TimeVault: { placeId: number };
+  ChatRoom: { roomId: number; roomName?: string };
+  NearbyChat: undefined;
+  SocialFeed: undefined;
+  ReelFeed: undefined;
+  PhotoUpload: { placeId: number };
 };
 
 export interface HeatmapCell {
@@ -13,6 +21,7 @@ export interface HeatmapCell {
   score: number;
   lat: number;
   lng: number;
+  visitCount?: number; // Number of visits in this cell
 }
 
 export interface Place {
@@ -46,6 +55,32 @@ export interface Photo {
   place_id: number;
   timestamp: string;
   s3_path: string;
+  caption?: string;
+  tags?: string[];
+  is_public?: boolean;
+  place_name?: string;
+}
+
+export interface ChatRoom {
+  id: number;
+  place_id?: number;
+  name: string;
+  description?: string;
+  lat?: number;
+  lng?: number;
+  radius_meters?: number;
+  place_name?: string;
+  active_users?: number;
+  message_count?: number;
+  created_at?: string;
+}
+
+export interface Message {
+  id: number;
+  chat_room_id: number;
+  user_id: number;
+  message: string;
+  created_at: string;
 }
 
 export interface PathPoint {

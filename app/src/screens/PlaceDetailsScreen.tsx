@@ -150,17 +150,45 @@ const PlaceDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
           <Text style={styles.city}>{place.city_name}</Text>
         )}
 
-        <TouchableOpacity
-          style={[styles.checkInButton, checkingIn && styles.checkInButtonDisabled]}
-          onPress={handleCheckIn}
-          disabled={checkingIn}
-        >
-          {checkingIn ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.checkInButtonText}>Check In</Text>
-          )}
-        </TouchableOpacity>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={[styles.actionButton, checkingIn && styles.actionButtonDisabled]}
+            onPress={handleCheckIn}
+            disabled={checkingIn}
+          >
+            {checkingIn ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.actionButtonText}>✓ Check In</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={() => navigation.navigate('TimeVault', { placeId })}
+          >
+            <Text style={styles.featureButtonText}>📸 Time Vault</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={async () => {
+              try {
+                const { getPlaceChatRoom } = await import('../services/api');
+                const data = await getPlaceChatRoom(placeId);
+                navigation.navigate('ChatRoom', {
+                  roomId: data.chatRoom.id,
+                  roomName: data.chatRoom.name,
+                });
+              } catch (error) {
+                Alert.alert('Error', 'Failed to open chat');
+              }
+            }}
+          >
+            <Text style={styles.featureButtonText}>💬 Chat</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -216,20 +244,37 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 20,
   },
-  checkInButton: {
+  buttonRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 10,
+  },
+  actionButton: {
+    flex: 1,
     backgroundColor: '#6200ee',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 10,
   },
-  checkInButtonDisabled: {
+  actionButtonDisabled: {
     opacity: 0.6,
   },
-  checkInButtonText: {
+  actionButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  featureButton: {
+    flex: 1,
+    backgroundColor: '#03dac6',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  featureButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "HeatGuide",
-    "slug": "heatguide",
+    "name": "UoM Guide",
+    "slug": "uom-guide",
     "version": "1.0.0",
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,14 +17,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.heatguide.app"
+      "bundleIdentifier": "com.uom.guide"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#0A0A0A"
       },
-      "package": "com.heatguide.app",
+      "package": "com.uom.guide",
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
@@ -37,7 +37,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow HeatGuide to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Allow UoM Guide to use your location."
         }
       ]
     ]

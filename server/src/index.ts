@@ -11,6 +11,8 @@ import placesRoutes from './routes/places';
 import visitsRoutes from './routes/visits';
 import achievementsRoutes from './routes/achievements';
 import photosRoutes from './routes/photos';
+import chatRoutes from './routes/chat';
+import authRoutes from './routes/auth';
 
 dotenv.config();
 
@@ -33,6 +35,8 @@ app.use('/api', placesRoutes);
 app.use('/api', visitsRoutes);
 app.use('/api', achievementsRoutes);
 app.use('/api', photosRoutes);
+app.use('/api', chatRoutes);
+app.use('/api', authRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: Function) => {
@@ -41,9 +45,12 @@ app.use((err: Error, req: Request, res: Response, next: Function) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+// Listen on all network interfaces (0.0.0.0) to allow connections from mobile devices
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 HeatGuide server running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/health`);
+  console.log(`🌐 Server accessible from network devices`);
+  console.log(`📱 Update LOCAL_IP in app/src/config/api.ts with your computer's IP address`);
 });
 
 export default app;

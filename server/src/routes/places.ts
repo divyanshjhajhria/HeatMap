@@ -9,6 +9,30 @@ import { Place } from '../types/models';
 const router = Router();
 
 /**
+ * GET /places/city/:cityId
+ * Get all places for a city
+ */
+router.get('/places/city/:cityId', async (req: Request, res: Response) => {
+  try {
+    const cityId = parseInt(req.params.cityId);
+    
+    const result = await pool.query(
+      'SELECT * FROM places WHERE city_id = $1 ORDER BY name',
+      [cityId]
+    );
+    
+    res.json({
+      cityId,
+      places: result.rows,
+      count: result.rows.length,
+    });
+  } catch (error) {
+    console.error('Error fetching places:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
  * GET /places/:id
  * Get place details by ID
  */
